@@ -217,6 +217,21 @@ end
 Gollum::Hook.unregister(:post_commit, :hook_id)
 ```
 
+Register or unregister a hook to be called after the wiki is initialized:
+
+```ruby
+Gollum::Hook.register(:post_wiki_initialize, :hook_id) do |wiki|
+  # Your code here
+end
+
+Gollum::Hook.unregister(:post_wiki_initialize, :hook_id)
+```
+
+A combination of both hooks can be used to pull from a remote after
+`:post_wiki_initialize` and push from a remote after `:post_commit` which in
+effect keeps the remote in sync. Please note: The remote should be read-only
+since it may be impossible to resolve conflicts automatically.
+
 ## WINDOWS FILENAME VALIDATION
 
 Note that filenames on windows must not contain any of the following characters `\ / : * ? " < > |`. See [this support article](http://support.microsoft.com/kb/177506) for details.
